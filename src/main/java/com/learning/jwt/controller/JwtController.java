@@ -2,6 +2,7 @@ package com.learning.jwt.controller;
 
 import com.learning.jwt.helper.JwtUtil;
 import com.learning.jwt.model.JwtRequest;
+import com.learning.jwt.model.JwtResponse;
 import com.learning.jwt.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,25 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JwtController {
-
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private JwtUtil jwtUtil;
-
-
 
     @PostMapping("/token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
 
         System.out.println(jwtRequest);
         try{
-            this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(),jwtRequest.getPassword()))
+            this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(),jwtRequest.getPassword()));
 
         }catch (UsernameNotFoundException e){
             e.printStackTrace();
@@ -48,12 +43,10 @@ public class JwtController {
         String token = this.jwtUtil.generateToken(userDetails);
         System.out.println("JWT "+token);
 
+        //{"token":"value"}
 
+        return ResponseEntity.ok(new JwtResponse(token));
 
     }
-
-
-
-
 
 }
