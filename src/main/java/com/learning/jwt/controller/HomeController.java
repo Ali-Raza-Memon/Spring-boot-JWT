@@ -14,4 +14,12 @@ public class HomeController {
                 text+="this page is not allowed to unautenticated users ";
         return text;
     }
+
+    @GetMapping("/getUser")
+    public String getUser(){
+
+        return "{\"name\":\"Ali Raza\"}";
+    }
+
+
 }
