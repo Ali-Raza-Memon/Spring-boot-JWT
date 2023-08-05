@@ -11,7 +11,7 @@ public class HomeController {
     @GetMapping("/welcome")
     public String welcome(){
         String text = "this is private page ";
-                text+="this page is not allowed to unautenticated users ";
+                text+="this page is not allowed to unauthenticated users ";
         return text;
     }
 

@@ -21,18 +21,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private JwtAuthenticationFilter jwtFilter;
+
 
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-
-
-
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -43,6 +39,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/token").permitAll()
+                .antMatchers("/user/add").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -56,17 +53,17 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserDetailsService);
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
 
-
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
+
 
 
 }

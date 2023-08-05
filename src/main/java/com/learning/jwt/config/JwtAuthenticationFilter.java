@@ -19,18 +19,14 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private JwtUtil jwtUtil;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-         //get jwt
+        //get jwt
         // Bearer
         // validate
 
@@ -42,10 +38,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //null and format
         if(requestTokenHeader !=null && requestTokenHeader.startsWith("Bearer ")){
             jwtToken = requestTokenHeader.substring(7);
-
             try{
                  username = this.jwtUtil.extractUsername(jwtToken);
-
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -69,10 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
         }
-
         filterChain.doFilter(request,response);
-
     }
-
 
 }

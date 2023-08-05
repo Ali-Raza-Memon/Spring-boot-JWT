@@ -28,11 +28,11 @@ public class JwtController {
 
     @PostMapping("/token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+        System.out.println("Hello");
 
         System.out.println(jwtRequest);
         try{
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(),jwtRequest.getPassword()));
-
         }catch (UsernameNotFoundException e){
             e.printStackTrace();
             throw new Exception("Bad Credentials");
